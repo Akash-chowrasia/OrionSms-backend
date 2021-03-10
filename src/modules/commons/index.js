@@ -13,4 +13,3 @@ const httpHandler = (asyncFn) => {
   
   export default httpHandler;
 
-

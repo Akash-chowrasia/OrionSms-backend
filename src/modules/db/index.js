@@ -15,10 +15,3 @@ const URL = 'mongodb://localhost/ORION_SMS';
         console.error('Database connection error');
     }
 })();
-
-
-
-
-
-
-
