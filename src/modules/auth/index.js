@@ -10,6 +10,7 @@ router.use('/auth',authRouter);
 const authModule = {
     init:(app) =>{
         app.use(router);
+        console.log('auth module loaded successfully');
     }
 }
 

@@ -11,5 +11,14 @@ router.post('/register',httpHandler(async(req,res)=>{
 }))
 
 
+router.post('/verify',httpHandler(async(req,res,next)=>{
+
+}))
+
+
+router.post('/login',httpHandler(async(req,res,next)=>{
+
+}))
+
 export default router;
 
