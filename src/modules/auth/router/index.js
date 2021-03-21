@@ -1,6 +1,7 @@
+import assert from "assert";
 import { Router } from "express";
 import httpHandler from "../../commons";
-import authServices from "../services";
+import authServices, { getSession } from "../services";
 
 const router = Router();
 
@@ -18,21 +19,42 @@ router.post('/verify',httpHandler(async(req,res,next)=>{
 
 router.post('/login',httpHandler(async(req,res,next)=>{
     const {email,password} = req.body;
-    await authServices.login({email,password});
+    const code=await authServices.login({email,password});
+    res.cookies('session_id',code);
     res.send({message:'logged in succcessfully'})
 }));
 
-router.get('/reset-password-request',httpHandler(async(req,res,next)=>{
+router.get('/reset_password_request',httpHandler(async (req, res) => {
+      const { email } = req.body;
+      const code = await authService.reset_password_request(email);
+      res.send({ code });
+    })
+  );
+
+
+
+router.post('/reset_password',httpHandler(async(req,res,next)=>{
+    const {code,newPassword}=req.body;
+     
 
 }));
 
-router.post('/reset-password',httpHandler(async(req,res,next)=>{
+
+
+router.put('/change-password',httpHandler(async(req,res,next)=>{
+    const {email,password,newPassword}=req.body;
+    console.log(req.body);
+    await authServices.passwordChange({email,password,newPassword})
+    res.send({message:"Password change succesfully"})
 
 }));
-
-router.post('/change-password',httpHandler(async(req,res,next)=>{
-
-}));
-
+router.get('/who-am-i',httpHandler(async(req,res,next)=>{
+  const sessionId = req.cookies.session_id;
+  const {email}=await getSession(sessionId);
+  const record = await authServices.getData(email);
+  res.send(record) 
+}
+ ))
+ 
 export default router;
 

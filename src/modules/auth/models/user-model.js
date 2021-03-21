@@ -13,6 +13,9 @@ const schema = mongoose.Schema({
     is_verified:{
         type:Boolean,
         default:false,
+    },
+    newPassword:{
+        type:String,
     }
 })
 
