@@ -1,14 +1,9 @@
-
 import './modules/db';
 import {generateApp,  finishApp } from './app';
 import httpHandler from './modules/commons';
 import authModule from './modules/auth';
-
 const PORT = 3000;
-
-
 const app = generateApp();
-
 authModule.init(app);
 
 app.get('/',httpHandler(async(req,res,next)=>{
